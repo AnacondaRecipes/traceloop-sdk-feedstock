@@ -1,5 +1,5 @@
 {% set name = "traceloop-sdk" %}
-{% set version = "0.47.2" %}
+{% set version = "0.57.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_')}}-{{ version }}.tar.gz
-  sha256: 92b950834966bd58aca3c0fdeeabd774290d5392b4802757c7e014a6bee6def0
+  sha256: 14435a168d02fbf162d6310b54dc793b695a4941b2a9897070c75e170deb2cd0
 
 build:
   number: 0
@@ -18,7 +18,7 @@ requirements:
   host:
     - pip
     - python
-    - poetry-core
+    - hatchling
   run:
     - python
     - opentelemetry-api >=1.28.0,<2.0.0
@@ -31,7 +31,9 @@ requirements:
     - opentelemetry-instrumentation-urllib3 >=0.50b0
     - opentelemetry-instrumentation-threading >=0.50b0
     - opentelemetry-instrumentation-redis >=0.50b0
-    - opentelemetry-semantic-conventions-ai >=0.4.13,<0.5.0
+    - opentelemetry-semantic-conventions-ai >=0.5.1,<0.6.0
+    - opentelemetry-instrumentation-agno =={{ version }}
+    - opentelemetry-instrumentation-voyageai =={{ version }}
     - opentelemetry-instrumentation-mistralai =={{ version }}
     - opentelemetry-instrumentation-openai =={{ version }}
     - opentelemetry-instrumentation-openai-agents =={{ version }}
@@ -77,6 +79,7 @@ test:
     - pip check
   requires:
     - pip
+    - httpx
 
 about:
   home: https://www.traceloop.com/openllmetry
