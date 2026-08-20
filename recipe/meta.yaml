@@ -78,15 +78,18 @@ requirements:
 test:
   imports:
     - traceloop.sdk
-  commands:
-    # https://inspector.pypi.io/project/litellm/1.89.3/packages/56/f1/f7cfead063f2ab1877c8fb465d0d7fe300b75f081bcb73525f6d550aeb1c/litellm-1.89.3.tar.gz/litellm-1.89.3/pyproject.toml#line.6
-    # litellm 1.83.7 has requirement aiohttp==3.13.5, but you have aiohttp 3.14.3.
-    # litellm 1.83.7 has requirement openai==2.30.0, but you have openai 2.49.0.
-    # litellm 1.83.7 has requirement tokenizers==0.22.2, but you have tokenizers 0.23.1.
-    # No new litellm for py314
-    - pip check  # [py<314]
-  requires:
-    - pip
+  #commands:
+  #   No new litellm for py314
+  #   https://inspector.pypi.io/project/litellm/1.89.3/packages/56/f1/f7cfead063f2ab1877c8fb465d0d7fe300b75f081bcb73525f6d550aeb1c/litellm-1.89.3.tar.gz/litellm-1.89.3/pyproject.toml#line.6
+  #   litellm 1.83.7 has requirement aiohttp==3.13.5, but you have aiohttp 3.14.3.
+  #   litellm 1.83.7 has requirement openai==2.30.0, but you have openai 2.49.0.
+  #   litellm 1.83.7 has requirement tokenizers==0.22.2, but you have tokenizers 0.23.1.
+  #   opentelemetry-instrumentation-pinecone 0.62.1 has requirement opentelemetry-semantic-conventions-ai<0.6.0,>=0.5.2, but you have opentelemetry-semantic-conventions-ai 0.5.1.
+  #   opentelemetry-instrumentation-milvus 0.62.1 has requirement opentelemetry-semantic-conventions-ai<0.6.0,>=0.5.2, but you have opentelemetry-semantic-conventions-ai 0.5.1.
+  #   opentelemetry-semantic-conventions-ai 0.5.2 is not released yet. Wrong pinning in the upstream. Latest is 0.5.1.
+  #  - pip check
+  #requires:
+  #  - pip
 
 about:
   home: https://www.traceloop.com/openllmetry
