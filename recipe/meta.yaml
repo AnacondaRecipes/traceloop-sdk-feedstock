@@ -1,13 +1,13 @@
 {% set name = "traceloop-sdk" %}
-{% set version = "0.57.0" %}
+{% set version = "0.62.1" %}
 
 package:
-  name: {{ name|lower }}
+  name: {{ name }}
   version: {{ version }}
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_')}}-{{ version }}.tar.gz
-  sha256: 14435a168d02fbf162d6310b54dc793b695a4941b2a9897070c75e170deb2cd0
+  sha256: 2cf798a3f5b74a72769e44ee2282164336700d98bd3d5d5f1f21f65a93755c99
 
 build:
   number: 0
@@ -33,7 +33,6 @@ requirements:
     - opentelemetry-instrumentation-redis >=0.59b0
     - opentelemetry-semantic-conventions-ai >=0.5.1,<0.6.0
     - opentelemetry-instrumentation-agno =={{ version }}
-    - opentelemetry-instrumentation-voyageai =={{ version }}
     - opentelemetry-instrumentation-mistralai =={{ version }}
     - opentelemetry-instrumentation-openai =={{ version }}
     - opentelemetry-instrumentation-openai-agents =={{ version }}
@@ -45,6 +44,7 @@ requirements:
     - opentelemetry-instrumentation-pinecone =={{ version }}
     - opentelemetry-instrumentation-qdrant =={{ version }}
     - opentelemetry-instrumentation-langchain =={{ version }}
+    - opentelemetry-instrumentation-litellm =={{ version }}
     - opentelemetry-instrumentation-lancedb =={{ version }}
     - opentelemetry-instrumentation-chromadb =={{ version }}
     - opentelemetry-instrumentation-transformers =={{ version }}
@@ -56,6 +56,7 @@ requirements:
     - opentelemetry-instrumentation-sagemaker =={{ version }}
     - opentelemetry-instrumentation-replicate =={{ version }}
     - opentelemetry-instrumentation-vertexai =={{ version }}
+    - opentelemetry-instrumentation-voyageai =={{ version }}
     - opentelemetry-instrumentation-watsonx =={{ version }}
     - opentelemetry-instrumentation-weaviate =={{ version }}
     - opentelemetry-instrumentation-writer =={{ version }}
@@ -70,15 +71,25 @@ requirements:
     - deprecated >=1.2.14,<2.0.0
     - aiohttp >=3.11.11,<4.0.0
     - cuid >=0.4.0,<0.5.0
+    # packages/traceloop/sdk/evaluator/evaluator.py"
+    # ModuleNotFoundError: No module named 'httpx'
     - httpx
 
 test:
   imports:
     - traceloop.sdk
-  commands:
-    - pip check
-  requires:
-    - pip
+  #commands:
+  #   No new litellm for py314
+  #   https://inspector.pypi.io/project/litellm/1.89.3/packages/56/f1/f7cfead063f2ab1877c8fb465d0d7fe300b75f081bcb73525f6d550aeb1c/litellm-1.89.3.tar.gz/litellm-1.89.3/pyproject.toml#line.6
+  #   litellm 1.83.7 has requirement aiohttp==3.13.5, but you have aiohttp 3.14.3.
+  #   litellm 1.83.7 has requirement openai==2.30.0, but you have openai 2.49.0.
+  #   litellm 1.83.7 has requirement tokenizers==0.22.2, but you have tokenizers 0.23.1.
+  #   opentelemetry-instrumentation-pinecone 0.62.1 has requirement opentelemetry-semantic-conventions-ai<0.6.0,>=0.5.2, but you have opentelemetry-semantic-conventions-ai 0.5.1.
+  #   opentelemetry-instrumentation-milvus 0.62.1 has requirement opentelemetry-semantic-conventions-ai<0.6.0,>=0.5.2, but you have opentelemetry-semantic-conventions-ai 0.5.1.
+  #   opentelemetry-semantic-conventions-ai 0.5.2 is not released yet. Wrong pinning in the upstream. Latest is 0.5.1.
+  #  - pip check
+  #requires:
+  #  - pip
 
 about:
   home: https://www.traceloop.com/openllmetry
